@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="AGTG — Australian Global Trade Gateway. Seamless import, export, customs brokerage, freight forwarding, and trade compliance solutions connecting businesses to 120+ countries worldwide.">
+<title>AGTG — Australian Global Trade Gateway</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23003366'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' fill='%2300B74F' font-family='Arial' font-weight='800' font-size='14'%3EAG%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{
+  --blue:#003366;--blue-dark:#00244D;--blue-mid:#0A4D8C;--blue-light:#EAF1F8;--blue-pale:#F5F8FC;
+  --green:#00B74F;--green-dark:#009A42;--green-light:#EDFAF2;
+  --white:#fff;--g50:#F9FAFB;--g100:#F1F3F5;--g200:#E1E5EA;--g300:#C8CDD5;--g400:#98A1AE;--g500:#6C7687;--g600:#4B5563;--g700:#374151;--g800:#1F2937;
+  --font:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,sans-serif;
+  --r:10px;--sh:0 1px 3px rgba(0,0,0,.05);--sh-md:0 4px 20px rgba(0,0,0,.07);--sh-lg:0 10px 40px rgba(0,0,0,.09);
+  --nav-h:68px
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--white);color:var(--g500);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+/* FIX #6: lock body scroll when mobile menu open */
+body.menu-open{overflow:hidden}
+a{text-decoration:none;color:inherit}
+.container{max-width:1180px;margin:0 auto;padding:0 24px}
+
+/* FIX #3: scroll offset so fixed nav doesn't cover content */
+section[id]{scroll-margin-top:calc(var(--nav-h) + 16px)}
+
+/* FIX #10: keyboard focus styles */
+:focus-visible{outline:2px solid var(--green);outline-offset:2px;border-radius:4px}
+a:focus:not(:focus-visible),button:focus:not(:focus-visible){outline:none}
+
+/* ─── NAV ─── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,.98);backdrop-filter:blur(16px);border-bottom:1px solid var(--g200);transition:box-shadow .3s}
+.nav.scrolled{box-shadow:var(--sh-md)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:var(--nav-h);max-width:1280px;margin:0 auto;padding:0 28px}
+.nav-logo{display:flex;align-items:center}
+.nav-wordmark{font-size:24px;font-weight:800;color:var(--blue);letter-spacing:-.5px}
+.nav-wordmark span{color:var(--green)}
+.nav-links{display:flex;align-items:center;gap:4px;list-style:none}
+.nav-links>li{position:relative}
+.nav-links>li>a{font-size:14px;font-weight:600;color:var(--g600);padding:8px 12px;border-radius:6px;transition:all .15s;display:flex;align-items:center;gap:5px;cursor:pointer;white-space:nowrap}
+.nav-links>li>a:hover{color:var(--blue);background:var(--blue-pale)}
+.nav-links>li>a .fa-chevron-down{font-size:10px;transition:transform .2s}
+.nav-links>li:hover>a .fa-chevron-down{transform:rotate(180deg)}
+
+/* FIX #15: isolate CTA from parent hover */
+.nav-links>li>a.nav-cta-btn{padding:9px 22px;background:var(--green);color:#fff;font-size:14px;font-weight:700;border-radius:7px;transition:all .2s}
+.nav-links>li>a.nav-cta-btn:hover{background:var(--green-dark);color:#fff;transform:translateY(-1px);box-shadow:0 4px 14px rgba(0,183,79,.25)}
+
+/* FIX #5: dropdown hover bridge — padding-bottom on li creates safe hover zone */
+.nav-links>li{padding-bottom:8px;margin-bottom:-8px}
+.nav-dd{position:absolute;top:100%;left:0;background:#fff;border:1px solid var(--g200);border-radius:var(--r);box-shadow:var(--sh-lg);min-width:270px;padding:6px;opacity:0;visibility:hidden;transform:translateY(4px);transition:all .2s}
+.nav-links>li:hover .nav-dd{opacity:1;visibility:visible;transform:translateY(0)}
+.nav-dd a{display:flex;align-items:center;gap:10px;padding:10px 14px;font-size:14px;font-weight:500;color:var(--g600);border-radius:7px;transition:all .12s}
+.nav-dd a:hover{background:var(--blue-pale);color:var(--blue)}
+.nav-dd a .fa-fw{width:18px;color:var(--green);font-size:14px}
+
+/* FIX #4: style hamburger icon generically */
+.hamburger{display:none;background:transparent;border:0;cursor:pointer;width:40px;height:40px;border-radius:8px;align-items:center;justify-content:center;transition:background .15s}
+.hamburger:hover{background:var(--g100)}
+.hamburger i{font-size:18px;color:var(--g700)}
+
+/* Mobile menu */
+.mobile-menu{display:none;position:fixed;top:var(--nav-h);left:0;right:0;bottom:0;background:#fff;z-index:99;padding:16px 24px;overflow-y:auto;border-top:1px solid var(--g200)}
+.mobile-menu.open{display:block}
+.mobile-menu a{display:flex;align-items:center;gap:10px;padding:14px 12px;font-size:15px;font-weight:600;color:var(--g700);border-radius:8px;border-bottom:1px solid var(--g100);transition:all .15s}
+.mobile-menu a:hover{background:var(--blue-pale);color:var(--blue)}
+.mobile-menu a .fa-fw{color:var(--green);width:20px}
+.mobile-menu .mobile-section{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--g400);padding:20px 12px 8px}
+/* FIX #9: mobile CTA override — remove border, style as button */
+.mobile-menu a.mobile-cta{display:block;text-align:center;margin-top:20px;padding:14px 24px;background:var(--green);color:#fff;font-weight:700;border-radius:8px;font-size:15px;border-bottom:none}
+.mobile-menu a.mobile-cta:hover{background:var(--green-dark)}
+
+/* ─── HERO ─── */
+.hero{padding:130px 0 100px;background:linear-gradient(180deg,var(--blue-pale) 0%,var(--white) 100%);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-200px;right:-150px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(0,183,79,.05),transparent 70%)}
+.hero-center{text-align:center;max-width:740px;margin:0 auto;position:relative;z-index:1}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;padding:5px 14px 5px 8px;background:var(--green-light);color:var(--green-dark);font-size:13px;font-weight:700;border-radius:20px;margin-bottom:24px}
+.hero-eyebrow-dot{width:7px;height:7px;background:var(--green);border-radius:50%}
+.hero h1{font-size:50px;font-weight:800;line-height:1.12;color:var(--blue-dark);letter-spacing:-1px;margin-bottom:22px}
+.hero h1 .hl{color:var(--green)}
+.hero-p{font-size:18px;line-height:1.75;color:var(--g500);margin:0 auto 38px;max-width:600px}
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;padding:14px 30px;background:var(--green);color:#fff;font-size:15px;font-weight:700;border-radius:8px;border:0;cursor:pointer;transition:all .2s}
+.btn-primary:hover{background:var(--green-dark);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,183,79,.22)}
+.btn-secondary{display:inline-flex;align-items:center;gap:8px;padding:14px 30px;background:#fff;color:var(--blue);font-size:15px;font-weight:700;border-radius:8px;border:1.5px solid var(--g200);cursor:pointer;transition:all .2s}
+.btn-secondary:hover{border-color:var(--blue);background:var(--blue-pale)}
+
+/* Hero features */
+.hero-features{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:64px;position:relative;z-index:1}
+.hf-card{background:#fff;border:1px solid var(--g200);border-radius:var(--r);padding:26px 22px;transition:all .3s;text-align:left}
+.hf-card:hover{box-shadow:var(--sh-lg);transform:translateY(-4px);border-color:var(--green)}
+.hf-top{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.hf-icon{width:40px;height:40px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px}
+.hf-icon.blue{background:var(--blue-light);color:var(--blue)}
+.hf-icon.green{background:var(--green-light);color:var(--green)}
+.hf-card h4{font-size:15px;font-weight:700;color:var(--blue-dark)}
+.hf-card p{font-size:13px;line-height:1.55;color:var(--g400)}
+
+/* FIX #13: partners border anchoring */
+.partners{padding:40px 0;border-top:1px solid var(--g100);border-bottom:1px solid var(--g100);background:var(--white)}
+.partners-label{text-align:center;font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--g300);margin-bottom:24px}
+.partners-row{display:flex;align-items:center;justify-content:center;gap:48px;flex-wrap:wrap}
+.partner-logo{font-size:18px;font-weight:800;color:var(--g300);letter-spacing:-.3px;opacity:.55;transition:opacity .2s}
+.partner-logo:hover{opacity:.85}
+
+/* ─── SERVICES ─── */
+.services{padding:100px 0}
+.sec-eyebrow{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:10px}
+.sec-heading{font-size:36px;font-weight:800;color:var(--blue-dark);letter-spacing:-.4px;line-height:1.2;margin-bottom:14px}
+.sec-sub{font-size:16px;line-height:1.7;color:var(--g500);max-width:520px}
+.services-top{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:52px;gap:32px}
+.srv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+/* FIX #14: contain transform within card so ::after bar doesn't clip */
+.srv-card{background:#fff;border:1px solid var(--g200);border-radius:var(--r);padding:32px 26px;transition:all .3s;position:relative;overflow:hidden}
+.srv-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--green);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.srv-card:hover{box-shadow:var(--sh-lg);transform:translateY(-5px);border-color:transparent;will-change:transform}
+.srv-card:hover::after{transform:scaleX(1)}
+.srv-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;font-size:20px}
+.srv-icon.blue{background:var(--blue-light);color:var(--blue)}
+.srv-icon.green{background:var(--green-light);color:var(--green)}
+.srv-card h3{font-size:18px;font-weight:700;color:var(--blue-dark);margin-bottom:10px}
+.srv-card p{font-size:14px;line-height:1.65;color:var(--g500);margin-bottom:18px}
+.srv-link{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--green);transition:gap .2s}
+.srv-link:hover{gap:10px}
+
+/* ─── AU LOGISTICS ─── */
+.au-logistics{padding:0;background:var(--blue-dark);position:relative;overflow:hidden}
+.au-logistics::before{content:'';position:absolute;inset:0;background:
+  radial-gradient(ellipse 80% 60% at 50% 40%,rgba(0,183,79,.06),transparent),
+  radial-gradient(circle at 15% 80%,rgba(10,77,140,.15),transparent 50%),
+  radial-gradient(circle at 85% 20%,rgba(0,183,79,.04),transparent 40%)}
+.au-logistics .container{position:relative;z-index:1}
+.au-top-dark{text-align:center;padding:100px 0 48px}
+.au-top-dark .sec-eyebrow{color:var(--green)}
+.au-top-dark .sec-heading{color:#fff}
+.au-top-dark .sec-sub{color:rgba(255,255,255,.5);margin:0 auto}
+
+/* Stats row */
+.au-stats{display:flex;justify-content:center;gap:56px;padding:0 0 48px;flex-wrap:wrap}
+.au-stat{text-align:center}
+.au-stat-num{font-size:36px;font-weight:800;color:var(--green);letter-spacing:-.5px;line-height:1}
+.au-stat-label{font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-top:6px}
+
+/* Map container */
+.au-map-wrap{position:relative;max-width:680px;margin:0 auto;padding:0 20px 56px}
+.au-map-bg{position:relative;width:100%}
+.au-map-bg svg{width:100%;height:auto;filter:drop-shadow(0 0 40px rgba(0,183,79,.06))}
+
+/* Animated route lines */
+.route-line{stroke:rgba(0,183,79,.15);stroke-width:1;fill:none;stroke-dasharray:6 4}
+.route-glow{stroke:rgba(0,183,79,.3);stroke-width:1.5;fill:none;stroke-dasharray:4 8;animation:routeFlow 4s linear infinite}
+@keyframes routeFlow{to{stroke-dashoffset:-48}}
+
+/* City dots */
+.au-dot{position:absolute;z-index:3;display:flex;flex-direction:column;align-items:center;cursor:default}
+.au-dot-pin{width:14px;height:14px;border-radius:50%;background:var(--green);border:2.5px solid rgba(255,255,255,.25);box-shadow:0 0 16px rgba(0,183,79,.5),0 0 40px rgba(0,183,79,.15);position:relative;transition:transform .2s}
+.au-dot:hover .au-dot-pin{transform:scale(1.4)}
+.au-dot-pin::before{content:'';position:absolute;inset:-6px;border-radius:50%;border:1.5px solid rgba(0,183,79,.35);animation:dotping 2.8s ease-out infinite}
+.au-dot-pin::after{content:'';position:absolute;inset:-12px;border-radius:50%;border:1px solid rgba(0,183,79,.15);animation:dotping 2.8s ease-out infinite .5s}
+@keyframes dotping{0%{opacity:.6;transform:scale(.7)}100%{opacity:0;transform:scale(2.2)}}
+.au-dot-label{margin-top:8px;font-size:11px;font-weight:700;color:rgba(255,255,255,.75);white-space:nowrap;letter-spacing:.5px;text-shadow:0 1px 8px rgba(0,0,0,.5);transition:color .2s}
+.au-dot:hover .au-dot-label{color:#fff}
+
+/* Dot positions */
+.au-dot.sydney{top:56%;left:81%}
+.au-dot.sydney .au-dot-pin::before{animation-delay:.2s}
+.au-dot.melbourne{top:70%;left:71%}
+.au-dot.melbourne .au-dot-pin::before{animation-delay:.6s}
+.au-dot.brisbane{top:42%;left:83%}
+.au-dot.brisbane .au-dot-pin::before{animation-delay:1s}
+.au-dot.perth{top:57%;left:13%}
+.au-dot.perth .au-dot-pin::before{animation-delay:1.4s}
+.au-dot.adelaide{top:64%;left:53%}
+.au-dot.adelaide .au-dot-pin::before{animation-delay:1.8s}
+.au-dot.darwin{top:17%;left:45%}
+.au-dot.darwin .au-dot-pin::before{animation-delay:2.2s}
+.au-dot.hobart{top:88%;left:71%}
+.au-dot.hobart .au-dot-pin::before{animation-delay:2.5s}
+.au-dot.cairns{top:25%;left:77%}
+.au-dot.cairns .au-dot-pin::before{animation-delay:2.8s}
+
+/* Port cards — glass style 3-col grid */
+.au-ports-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:0 0 100px}
+.au-port{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:28px 24px;transition:all .35s;position:relative;overflow:hidden}
+.au-port::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--green),rgba(0,183,79,.2));transform:scaleX(0);transform-origin:left;transition:transform .35s}
+.au-port:hover{background:rgba(255,255,255,.08);border-color:rgba(0,183,79,.25);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.2)}
+.au-port:hover::before{transform:scaleX(1)}
+.au-port-head{display:flex;align-items:center;gap:14px;margin-bottom:12px}
+.au-port-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:17px}
+.au-port-icon.sea{background:rgba(0,183,79,.1);color:var(--green)}
+.au-port-icon.air{background:rgba(10,77,140,.2);color:#5BA4E6}
+.au-port h4{font-size:16px;font-weight:700;color:#fff;line-height:1.3}
+.au-port h4 span{display:block;font-size:12px;font-weight:600;color:rgba(255,255,255,.35);margin-top:2px}
+.au-port p{font-size:13px;line-height:1.65;color:rgba(255,255,255,.4)}
+
+/* ─── WHY ─── */
+.why{padding:100px 0}
+.why-head{text-align:center;margin-bottom:56px}
+.why-head .sec-sub{margin:0 auto}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.why-card{background:var(--blue-pale);border:1px solid transparent;border-radius:var(--r);padding:32px 26px;transition:all .3s}
+.why-card:hover{background:#fff;border-color:var(--g200);box-shadow:var(--sh-md);transform:translateY(-4px)}
+.why-card-icon{width:48px;height:48px;border-radius:12px;background:var(--green-light);color:var(--green);display:flex;align-items:center;justify-content:center;margin-bottom:18px;font-size:20px}
+.why-card h4{font-size:17px;font-weight:700;color:var(--blue-dark);margin-bottom:8px}
+.why-card p{font-size:14px;line-height:1.65;color:var(--g500)}
+
+/* ─── GLOBAL ─── */
+.global{padding:100px 0;background:var(--blue-dark);color:#fff;position:relative;overflow:hidden}
+.global::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 20% 60%,rgba(0,183,79,.06),transparent 50%),radial-gradient(circle at 80% 30%,rgba(10,77,140,.12),transparent 50%)}
+.global .container{position:relative;z-index:1}
+.global .sec-heading{color:#fff}
+.global .sec-sub{color:rgba(255,255,255,.55)}
+.global-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:52px}
+.gl-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:var(--r);padding:28px 24px;transition:all .3s}
+.gl-card:hover{background:rgba(255,255,255,.09);border-color:var(--green);transform:translateY(-3px)}
+.gl-card-icon{width:42px;height:42px;border-radius:10px;background:rgba(0,183,79,.12);color:var(--green);display:flex;align-items:center;justify-content:center;margin-bottom:16px;font-size:18px}
+.gl-card h4{font-size:16px;font-weight:700;color:#fff;margin-bottom:6px}
+.gl-card p{font-size:13px;line-height:1.6;color:rgba(255,255,255,.45)}
+
+/* ─── INDUSTRIES ─── */
+.industries{padding:100px 0;background:var(--g50)}
+.ind-head{text-align:center;margin-bottom:52px}
+.ind-head .sec-sub{margin:0 auto}
+.ind-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.ind-card{background:#fff;border:1px solid var(--g200);border-radius:var(--r);padding:30px 22px;text-align:center;transition:all .3s}
+.ind-card:hover{border-color:var(--green);box-shadow:var(--sh-md);transform:translateY(-4px)}
+.ind-icon{width:52px;height:52px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:20px}
+.ind-icon.blue{background:var(--blue-light);color:var(--blue)}
+.ind-icon.green{background:var(--green-light);color:var(--green)}
+.ind-card h4{font-size:15px;font-weight:700;color:var(--blue-dark);margin-bottom:5px}
+.ind-card p{font-size:13px;line-height:1.5;color:var(--g400)}
+
+/* ─── PROCESS ─── */
+.process{padding:100px 0}
+.proc-head{text-align:center;margin-bottom:60px}
+.proc-head .sec-sub{margin:0 auto}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative}
+.steps::before{content:'';position:absolute;top:28px;left:12.5%;right:12.5%;height:2px;background:var(--g200)}
+.step{text-align:center;padding:0 18px;position:relative}
+.step-num{width:56px;height:56px;border-radius:50%;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;margin:0 auto 22px;position:relative;z-index:1;box-shadow:0 4px 16px rgba(0,183,79,.2)}
+.step h4{font-size:16px;font-weight:700;color:var(--blue-dark);margin-bottom:8px}
+.step p{font-size:14px;line-height:1.6;color:var(--g500)}
+
+/* ─── TESTIMONIALS ─── */
+.testimonials{padding:100px 0;background:var(--g50)}
+.test-head{margin-bottom:52px}
+/* FIX #7: center test-grid at tablet */
+.test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.test-card{background:#fff;border:1px solid var(--g200);border-radius:var(--r);padding:30px;transition:box-shadow .3s}
+.test-card:hover{box-shadow:var(--sh-md)}
+.test-stars{margin-bottom:14px;color:#F5A623;font-size:14px;letter-spacing:2px}
+.test-card blockquote{font-size:14px;line-height:1.7;color:var(--g600);margin-bottom:22px;font-style:normal}
+.test-author{display:flex;align-items:center;gap:12px;padding-top:18px;border-top:1px solid var(--g100)}
+.test-av{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:#fff;flex-shrink:0}
+.t-b{background:var(--blue)}.t-g{background:var(--green)}.t-m{background:var(--blue-mid)}
+.test-name{font-size:14px;font-weight:700;color:var(--blue-dark)}
+.test-role{font-size:12px;color:var(--g400)}
+
+/* ─── CTA ─── */
+.cta{padding:100px 0}
+.cta-box{background:linear-gradient(135deg,var(--blue-dark),var(--blue-mid));border-radius:18px;padding:68px 72px;display:flex;align-items:center;justify-content:space-between;gap:48px;position:relative;overflow:hidden}
+.cta-box::before{content:'';position:absolute;top:-60px;right:-60px;width:250px;height:250px;border-radius:50%;background:rgba(0,183,79,.08)}
+.cta-left{position:relative;z-index:1;flex:1}
+.cta-left h2{font-size:34px;font-weight:800;color:#fff;letter-spacing:-.3px;margin-bottom:10px}
+.cta-left p{font-size:16px;color:rgba(255,255,255,.55);line-height:1.7;max-width:460px}
+.cta-right{position:relative;z-index:1;display:flex;flex-direction:column;gap:12px;flex-shrink:0}
+.btn-cta-green{padding:14px 34px;background:var(--green);color:#fff;font-size:15px;font-weight:700;border-radius:8px;border:0;cursor:pointer;transition:all .2s;text-align:center;display:block}
+.btn-cta-green:hover{background:var(--green-dark);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,183,79,.3)}
+.btn-cta-outline{padding:14px 34px;background:transparent;color:#fff;font-size:15px;font-weight:600;border-radius:8px;border:1.5px solid rgba(255,255,255,.2);cursor:pointer;transition:all .2s;text-align:center;display:block}
+.btn-cta-outline:hover{border-color:#fff;background:rgba(255,255,255,.05)}
+
+/* ─── FOOTER ─── */
+footer{background:var(--g50);border-top:1px solid var(--g200);padding:56px 0 28px}
+/* FIX #8: footer grid — use auto-fit with proper wrapping */
+.ft-grid{display:grid;grid-template-columns:1.6fr repeat(4,1fr);gap:36px;margin-bottom:44px}
+.ft-logo{margin-bottom:14px}
+.ft-wordmark{font-size:20px;font-weight:800;color:var(--blue)}
+.ft-wordmark span{color:var(--green)}
+.ft-desc{font-size:13px;line-height:1.7;color:var(--g400);max-width:260px}
+.ft-col h5{font-size:12px;font-weight:700;color:var(--blue-dark);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:16px}
+.ft-col ul{list-style:none}
+.ft-col li{margin-bottom:10px}
+.ft-col a{font-size:13px;color:var(--g500);transition:color .15s}
+.ft-col a:hover{color:var(--green)}
+.ft-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:22px;border-top:1px solid var(--g200)}
+.ft-bottom p{font-size:12px;color:var(--g400)}
+.ft-social{display:flex;gap:8px}
+.ft-social a{width:34px;height:34px;display:flex;align-items:center;justify-content:center;border:1px solid var(--g200);border-radius:7px;color:var(--g500);font-size:14px;transition:all .15s}
+.ft-social a:hover{border-color:var(--green);color:var(--green);background:var(--green-light)}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:1024px){
+  .hero h1{font-size:40px}
+  .hero-features{grid-template-columns:repeat(2,1fr)}
+  .srv-grid,.why-grid{grid-template-columns:repeat(2,1fr)}
+  .global-grid{grid-template-columns:repeat(2,1fr)}
+  .au-ports-grid{grid-template-columns:repeat(2,1fr)}
+  .au-stats{gap:36px}
+  .au-stat-num{font-size:28px}
+  .ind-grid{grid-template-columns:repeat(2,1fr)}
+  .steps{grid-template-columns:repeat(2,1fr);gap:36px}
+  .steps::before{display:none}
+  /* FIX #7: center the single-column test grid */
+  .test-grid{grid-template-columns:1fr;max-width:520px;margin:0 auto}
+  .cta-box{flex-direction:column;text-align:center;padding:52px 36px}
+  .cta-left p{margin:0 auto}
+  /* FIX #8: footer wraps cleanly at tablet */
+  .ft-grid{grid-template-columns:1fr 1fr 1fr;gap:32px}
+  .services-top{flex-direction:column;align-items:flex-start}
+}
+@media(max-width:768px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .hero{padding:110px 0 64px}
+  .hero h1{font-size:30px}
+  .hero-features{grid-template-columns:1fr}
+  .srv-grid,.global-grid,.ind-grid,.why-grid{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr}
+  .ft-grid{grid-template-columns:1fr}
+  .ft-bottom{flex-direction:column;gap:12px;text-align:center}
+  .partners-row{gap:24px}
+  .cta-box{padding:40px 24px}
+  .au-ports-grid{grid-template-columns:1fr}
+  .au-stats{gap:24px}
+  .au-stat-num{font-size:26px}
+  .au-top-dark{padding:72px 0 36px}
+  .au-map-wrap{padding-bottom:36px}
+  .au-ports-grid{padding-bottom:72px}
+}
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <div class="nav-wordmark">AGTG<span>.</span></div>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li>
+        <a href="#services"><span>Solutions</span> <i class="fa-solid fa-chevron-down"></i></a>
+        <div class="nav-dd">
+          <a href="#services"><i class="fa-solid fa-shield-halved fa-fw"></i> Customs Brokerage</a>
+          <a href="#services"><i class="fa-solid fa-truck-fast fa-fw"></i> Freight & Logistics</a>
+          <a href="#services"><i class="fa-solid fa-scale-balanced fa-fw"></i> Trade Compliance</a>
+          <a href="#services"><i class="fa-solid fa-file-circle-check fa-fw"></i> Importer of Record</a>
+          <a href="#services"><i class="fa-solid fa-file-export fa-fw"></i> Exporter of Record</a>
+          <a href="#services"><i class="fa-solid fa-warehouse fa-fw"></i> Warehousing</a>
+          <a href="#services"><i class="fa-solid fa-receipt fa-fw"></i> GST & Duty Recovery</a>
+        </div>
+      </li>
+      <li>
+        <a href="#global"><span>Global Reach</span> <i class="fa-solid fa-chevron-down"></i></a>
+        <div class="nav-dd">
+          <a href="#global"><i class="fa-solid fa-earth-asia fa-fw"></i> Asia-Pacific</a>
+          <a href="#global"><i class="fa-solid fa-earth-americas fa-fw"></i> North America</a>
+          <a href="#global"><i class="fa-solid fa-earth-europe fa-fw"></i> Europe & UK</a>
+          <a href="#global"><i class="fa-solid fa-earth-africa fa-fw"></i> Middle East & Africa</a>
+          <!-- FIX #1: fa-earth-oceania doesn't exist, use fa-earth-asia -->
+          <a href="#global"><i class="fa-solid fa-earth-asia fa-fw"></i> Oceania</a>
+        </div>
+      </li>
+      <li><a href="#industries">Industries</a></li>
+      <li><a href="#au-logistics">Network</a></li>
+      <li><a href="#process">How It Works</a></li>
+      <li><a href="#contact" class="nav-cta-btn">Contact Us</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileMenu">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Mobile navigation">
+  <div class="mobile-section">Solutions</div>
+  <a href="#services"><i class="fa-solid fa-shield-halved fa-fw"></i> Customs Brokerage</a>
+  <a href="#services"><i class="fa-solid fa-truck-fast fa-fw"></i> Freight & Logistics</a>
+  <a href="#services"><i class="fa-solid fa-scale-balanced fa-fw"></i> Trade Compliance</a>
+  <a href="#services"><i class="fa-solid fa-file-circle-check fa-fw"></i> Importer of Record</a>
+  <a href="#services"><i class="fa-solid fa-warehouse fa-fw"></i> Warehousing</a>
+  <div class="mobile-section">Global Reach</div>
+  <a href="#global"><i class="fa-solid fa-earth-asia fa-fw"></i> Asia-Pacific</a>
+  <a href="#global"><i class="fa-solid fa-earth-americas fa-fw"></i> North America</a>
+  <a href="#global"><i class="fa-solid fa-earth-europe fa-fw"></i> Europe & UK</a>
+  <div class="mobile-section">More</div>
+  <a href="#industries"><i class="fa-solid fa-industry fa-fw"></i> Industries</a>
+  <a href="#au-logistics"><i class="fa-solid fa-map-location-dot fa-fw"></i> Network</a>
+  <a href="#process"><i class="fa-solid fa-list-ol fa-fw"></i> How It Works</a>
+  <a href="#contact" class="mobile-cta">Contact Us</a>
+</div>
+
+<!-- Hero -->
+<section class="hero" id="hero">
+  <div class="container">
+    <div class="hero-center">
+      <div class="hero-eyebrow">
+        <span class="hero-eyebrow-dot"></span>
+        International Trade Made Simple
+      </div>
+      <h1>Your <span class="hl">Global Trade</span> Gateway Based in Australia</h1>
+      <p class="hero-p">AGTG connects businesses worldwide to seamless import and export solutions across 120+ countries — with full customs compliance, international freight forwarding, and door-to-door logistics from our Australian hub.</p>
+      <div class="hero-btns">
+        <a href="#contact" class="btn-primary">Contact Us <i class="fa-solid fa-arrow-right" style="font-size:14px"></i></a>
+        <a href="#services" class="btn-secondary">Explore Solutions</a>
+      </div>
+    </div>
+    <div class="hero-features">
+      <div class="hf-card">
+        <div class="hf-top">
+          <div class="hf-icon blue"><i class="fa-solid fa-shield-halved"></i></div>
+          <h4>Customs Brokerage</h4>
+        </div>
+        <p>Licensed brokers managing clearance, duties, and regulatory documentation across international borders.</p>
+      </div>
+      <div class="hf-card">
+        <div class="hf-top">
+          <div class="hf-icon green"><i class="fa-solid fa-truck-fast"></i></div>
+          <h4>International Freight</h4>
+        </div>
+        <p>Sea and air freight with real-time tracking, door-to-door delivery across 120+ global destinations.</p>
+      </div>
+      <div class="hf-card">
+        <div class="hf-top">
+          <div class="hf-icon green"><i class="fa-solid fa-file-circle-check"></i></div>
+          <h4>Importer of Record</h4>
+        </div>
+        <p>Trade into any market without establishing a local entity — we act as your registered IOR/EOR globally.</p>
+      </div>
+      <div class="hf-card">
+        <div class="hf-top">
+          <div class="hf-icon blue"><i class="fa-solid fa-earth-asia"></i></div>
+          <h4>120+ Destinations</h4>
+        </div>
+        <p>Full import/export facilitation with trade compliance, FTA optimisation, and DDP shipping worldwide.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Partners -->
+<div class="partners">
+  <div class="container">
+    <div class="partners-label">Trusted by businesses across the globe</div>
+    <div class="partners-row">
+      <div class="partner-logo">Austrade</div>
+      <div class="partner-logo">DHL</div>
+      <div class="partner-logo">Maersk</div>
+      <div class="partner-logo">CEVA</div>
+      <div class="partner-logo">Kuehne+Nagel</div>
+      <div class="partner-logo">DB Schenker</div>
+    </div>
+  </div>
+</div>
+
+<!-- Services -->
+<section class="services" id="services">
+  <div class="container">
+    <div class="services-top">
+      <div>
+        <div class="sec-eyebrow">Our Solutions</div>
+        <h2 class="sec-heading">End-to-End International<br>Trade Solutions</h2>
+        <p class="sec-sub">From customs clearance to last-mile delivery anywhere in the world, AGTG handles every step of your cross-border trade operations.</p>
+      </div>
+      <a href="#" class="btn-secondary">View All Solutions <i class="fa-solid fa-arrow-right" style="font-size:12px"></i></a>
+    </div>
+    <div class="srv-grid">
+      <div class="srv-card">
+        <div class="srv-icon blue"><i class="fa-solid fa-shield-halved"></i></div>
+        <h3>Customs Brokerage</h3>
+        <p>Licensed customs brokers managing all documentation, duty calculations, regulatory permits, and border clearance for imports and exports across multiple jurisdictions.</p>
+        <a href="#" class="srv-link">Learn more <i class="fa-solid fa-arrow-right" style="font-size:11px"></i></a>
+      </div>
+      <div class="srv-card">
+        <div class="srv-icon green"><i class="fa-solid fa-truck-fast"></i></div>
+        <h3>International Freight</h3>
+        <p>Global sea and air freight forwarding with real-time tracking, consolidated shipping, and door-to-door delivery connecting Australia with 120+ international destinations.</p>
+        <a href="#" class="srv-link">Learn more <i class="fa-solid fa-arrow-right" style="font-size:11px"></i></a>
+      </div>
+      <div class="srv-card">
+        <div class="srv-icon blue"><i class="fa-solid fa-scale-balanced"></i></div>
+        <h3>Trade Compliance</h3>
+        <p>Navigate complex international trade regulations, sanctions screening, tariff classifications, Free Trade Agreements, and anti-dumping rules with expert guidance.</p>
+        <a href="#" class="srv-link">Learn more <i class="fa-solid fa-arrow-right" style="font-size:11px"></i></a>
+      </div>
+      <div class="srv-card">
+        <div class="srv-icon green"><i class="fa-solid fa-file-circle-check"></i></div>
+        <h3>Importer & Exporter of Record</h3>
+        <p>AGTG acts as your registered IOR/EOR — taking on full compliance liability so your business can trade into new markets without establishing a local entity.</p>
+        <a href="#" class="srv-link">Learn more <i class="fa-solid fa-arrow-right" style="font-size:11px"></i></a>
+      </div>
+      <div class="srv-card">
+        <div class="srv-icon blue"><i class="fa-solid fa-warehouse"></i></div>
+        <h3>Warehousing & Distribution</h3>
+        <p>Strategic bonded and general warehousing across key global hubs with pick-and-pack, inventory management, cross-docking, and same-day dispatch capabilities.</p>
+        <a href="#" class="srv-link">Learn more <i class="fa-solid fa-arrow-right" style="font-size:11px"></i></a>
+      </div>
+      <div class="srv-card">
+        <div class="srv-icon green"><i class="fa-solid fa-receipt"></i></div>
+        <h3>Duties, Tax & GST Recovery</h3>
+        <p>Optimise duty payments, leverage preferential tariffs through Free Trade Agreements, and recover VAT/GST on imported goods through our specialist advisory team.</p>
+        <a href="#" class="srv-link">Learn more <i class="fa-solid fa-arrow-right" style="font-size:11px"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Domestic & International Network -->
+<section class="au-logistics" id="au-logistics">
+  <div class="container">
+    <div class="au-top-dark">
+      <div class="sec-eyebrow">Domestic & International Network</div>
+      <h2 class="sec-heading">Strategic Hubs Across<br>Australia & the Asia-Pacific</h2>
+      <p class="sec-sub">Our operations span every major Australian port and airport, connecting seamlessly to international trade corridors across Asia, the Americas, Europe, and beyond.</p>
+    </div>
+
+    <!-- Stats -->
+    <div class="au-stats">
+      <div class="au-stat"><div class="au-stat-num">8</div><div class="au-stat-label">Major Hubs</div></div>
+      <div class="au-stat"><div class="au-stat-num">5</div><div class="au-stat-label">Container Ports</div></div>
+      <div class="au-stat"><div class="au-stat-num">24/7</div><div class="au-stat-label">Air Freight</div></div>
+      <div class="au-stat"><div class="au-stat-num">120+</div><div class="au-stat-label">Global Routes</div></div>
+    </div>
+
+    <!-- Map -->
+    <div class="au-map-wrap">
+      <div class="au-map-bg">
+        <svg viewBox="0 0 500 420" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Map of Australia showing AGTG port network">
+          <!-- Grid lines -->
+          <line x1="0" y1="105" x2="500" y2="105" stroke="rgba(255,255,255,.03)" stroke-width=".5"/>
+          <line x1="0" y1="210" x2="500" y2="210" stroke="rgba(255,255,255,.03)" stroke-width=".5"/>
+          <line x1="0" y1="315" x2="500" y2="315" stroke="rgba(255,255,255,.03)" stroke-width=".5"/>
+          <line x1="125" y1="0" x2="125" y2="420" stroke="rgba(255,255,255,.03)" stroke-width=".5"/>
+          <line x1="250" y1="0" x2="250" y2="420" stroke="rgba(255,255,255,.03)" stroke-width=".5"/>
+          <line x1="375" y1="0" x2="375" y2="420" stroke="rgba(255,255,255,.03)" stroke-width=".5"/>
+          <!-- Australia outline -->
+          <path d="M175 55 C195 48,220 52,245 58 C265 55,295 52,320 60 C345 68,370 80,392 98 C408 112,418 130,424 155 C430 175,424 200,418 220 C422 242,428 268,418 290 C410 310,395 325,382 340 C370 355,352 365,335 372 C318 378,298 380,280 376 C262 372,244 360,226 354 C210 352,195 356,175 366 C158 374,140 378,122 372 C106 364,96 348,88 330 C80 312,74 292,72 272 C66 250,60 226,62 204 C64 182,72 162,80 145 C88 126,100 112,115 98 C130 84,148 70,175 55Z" stroke="rgba(255,255,255,.1)" stroke-width="1.5" fill="rgba(255,255,255,.02)"/>
+          <!-- Tasmania -->
+          <path d="M348 378 C358 376,366 382,370 390 C372 400,366 408,358 410 C348 412,340 406,338 398 C336 388,340 380,348 378Z" stroke="rgba(255,255,255,.1)" stroke-width="1.5" fill="rgba(255,255,255,.02)"/>
+          <!-- Animated route lines between cities -->
+          <line class="route-line" x1="405" y1="240" x2="360" y2="300" /><!-- Sydney to Melbourne -->
+          <line class="route-glow" x1="405" y1="240" x2="360" y2="300" />
+          <line class="route-line" x1="405" y1="240" x2="415" y2="182" /><!-- Sydney to Brisbane -->
+          <line class="route-glow" x1="405" y1="240" x2="415" y2="182" style="animation-delay:-.8s"/>
+          <line class="route-line" x1="270" y1="270" x2="360" y2="300" /><!-- Adelaide to Melbourne -->
+          <line class="route-glow" x1="270" y1="270" x2="360" y2="300" style="animation-delay:-1.5s"/>
+          <line class="route-line" x1="75" y1="242" x2="270" y2="270" /><!-- Perth to Adelaide -->
+          <line class="route-glow" x1="75" y1="242" x2="270" y2="270" style="animation-delay:-2.2s"/>
+          <line class="route-line" x1="230" y1="78" x2="415" y2="182" /><!-- Darwin to Brisbane -->
+          <line class="route-glow" x1="230" y1="78" x2="415" y2="182" style="animation-delay:-3s"/>
+          <line class="route-line" x1="390" y1="112" x2="415" y2="182" /><!-- Cairns to Brisbane -->
+          <line class="route-glow" x1="390" y1="112" x2="415" y2="182" style="animation-delay:-3.5s"/>
+          <!-- Outbound international route arrows -->
+          <path class="route-line" d="M405 240 Q460 200,490 160" /><!-- Sydney → Asia -->
+          <path class="route-glow" d="M405 240 Q460 200,490 160" style="animation-delay:-1s"/>
+          <path class="route-line" d="M75 242 Q30 200,10 150" /><!-- Perth → Middle East -->
+          <path class="route-glow" d="M75 242 Q30 200,10 150" style="animation-delay:-2s"/>
+          <path class="route-line" d="M230 78 Q200 30,170 5" /><!-- Darwin → SE Asia -->
+          <path class="route-glow" d="M230 78 Q200 30,170 5" style="animation-delay:-2.8s"/>
+        </svg>
+        <!-- City dots -->
+        <div class="au-dot sydney"><div class="au-dot-pin"></div><div class="au-dot-label">Sydney</div></div>
+        <div class="au-dot melbourne"><div class="au-dot-pin"></div><div class="au-dot-label">Melbourne</div></div>
+        <div class="au-dot brisbane"><div class="au-dot-pin"></div><div class="au-dot-label">Brisbane</div></div>
+        <div class="au-dot perth"><div class="au-dot-pin"></div><div class="au-dot-label">Perth</div></div>
+        <div class="au-dot adelaide"><div class="au-dot-pin"></div><div class="au-dot-label">Adelaide</div></div>
+        <div class="au-dot darwin"><div class="au-dot-pin"></div><div class="au-dot-label">Darwin</div></div>
+        <div class="au-dot hobart"><div class="au-dot-pin"></div><div class="au-dot-label">Hobart</div></div>
+        <div class="au-dot cairns"><div class="au-dot-pin"></div><div class="au-dot-label">Cairns</div></div>
+      </div>
+    </div>
+
+    <!-- Port Cards -->
+    <div class="au-ports-grid">
+      <div class="au-port">
+        <div class="au-port-head">
+          <div class="au-port-icon sea"><i class="fa-solid fa-anchor"></i></div>
+          <h4>Sydney<span>Port Botany</span></h4>
+        </div>
+        <p>Primary container gateway connecting Asia-Pacific and trans-Pacific shipping lanes. Bonded warehousing and express clearance for international consignments.</p>
+      </div>
+      <div class="au-port">
+        <div class="au-port-head">
+          <div class="au-port-icon sea"><i class="fa-solid fa-anchor"></i></div>
+          <h4>Melbourne<span>Port of Melbourne</span></h4>
+        </div>
+        <p>Australia's busiest trade port with direct links to Europe, Middle East, and the Americas. Cold-chain certified and cross-dock distribution hub.</p>
+      </div>
+      <div class="au-port">
+        <div class="au-port-head">
+          <div class="au-port-icon sea"><i class="fa-solid fa-anchor"></i></div>
+          <h4>Brisbane<span>Port of Brisbane</span></h4>
+        </div>
+        <p>Strategic gateway for Southeast Asian trade corridors. Specialised in agricultural exports, mining logistics, and Asia-Pacific freight movements.</p>
+      </div>
+      <div class="au-port">
+        <div class="au-port-head">
+          <div class="au-port-icon sea"><i class="fa-solid fa-anchor"></i></div>
+          <h4>Perth<span>Fremantle Port</span></h4>
+        </div>
+        <p>Western gateway to Indian Ocean routes. Key hub for trade with the Middle East, Africa, India, and the subcontinent.</p>
+      </div>
+      <div class="au-port">
+        <div class="au-port-head">
+          <div class="au-port-icon sea"><i class="fa-solid fa-anchor"></i></div>
+          <h4>Adelaide<span>Port Adelaide</span></h4>
+        </div>
+        <p>Central hub serving defence industry imports, wine exports, and regional distribution across South Australia and the Northern Territory.</p>
+      </div>
+      <div class="au-port">
+        <div class="au-port-head">
+          <div class="au-port-icon air"><i class="fa-solid fa-plane"></i></div>
+          <h4>Air Freight Network<span>All Major Airports</span></h4>
+        </div>
+        <p>Priority air cargo through all major airports. Express customs clearance for time-sensitive and high-value shipments to any global destination.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Why AGTG -->
+<section class="why" id="why">
+  <div class="container">
+    <div class="why-head">
+      <div class="sec-eyebrow">Why Choose AGTG</div>
+      <h2 class="sec-heading">Global Expertise, Local Execution</h2>
+      <p class="sec-sub">We combine deep international trade knowledge with on-the-ground operational capability to deliver seamless cross-border solutions for businesses of any size.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card"><div class="why-card-icon"><i class="fa-solid fa-user-check"></i></div><h4>One Point of Contact</h4><p>A dedicated trade specialist manages your entire shipment from origin to destination — across borders, customs, and last-mile delivery.</p></div>
+      <div class="why-card"><div class="why-card-icon"><i class="fa-solid fa-clock"></i></div><h4>First-Time Clearance</h4><p>Our compliance-first approach ensures your goods clear customs correctly the first time — avoiding delays, penalties, and border holdups worldwide.</p></div>
+      <div class="why-card"><div class="why-card-icon"><i class="fa-solid fa-certificate"></i></div><h4>Licensed & Accredited</h4><p>Fully licensed customs brokers with Trusted Trader accreditation and regulatory partnerships in key markets for priority processing.</p></div>
+      <div class="why-card"><div class="why-card-icon"><i class="fa-solid fa-calculator"></i></div><h4>Transparent Pricing</h4><p>No hidden fees. Complete landed cost breakdowns including all international duties, taxes, freight, and handling before your shipment moves.</p></div>
+      <div class="why-card"><div class="why-card-icon"><i class="fa-solid fa-magnifying-glass-dollar"></i></div><h4>FTA Optimisation</h4><p>We actively identify duty savings through Free Trade Agreements globally — saving our clients significant costs on qualifying goods in every corridor.</p></div>
+      <div class="why-card"><div class="why-card-icon"><i class="fa-solid fa-headset"></i></div><h4>24/7 Global Support</h4><p>Support teams spanning multiple time zones, backed by our international partner network covering 120+ countries and every major trade lane.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Global -->
+<section class="global" id="global">
+  <div class="container">
+    <div class="sec-eyebrow" style="color:rgba(255,255,255,.4)">Global Capabilities</div>
+    <h2 class="sec-heading">Seamless Trade Across<br>Every Major Market</h2>
+    <p class="sec-sub">From our Australian base, we facilitate trade into 120+ countries through established partnerships, regulatory expertise, and deep market knowledge in every region.</p>
+    <div class="global-grid">
+      <div class="gl-card"><div class="gl-card-icon"><i class="fa-solid fa-earth-asia"></i></div><h4>Asia-Pacific</h4><p>China, Japan, South Korea, India, Singapore, Indonesia, Thailand, and the full ASEAN network via active Free Trade Agreements.</p></div>
+      <div class="gl-card"><div class="gl-card-icon"><i class="fa-solid fa-earth-americas"></i></div><h4>North America</h4><p>USA, Canada, and Mexico with CPTPP preference management, USMCA compliance, and full regulatory support for cross-border trade.</p></div>
+      <div class="gl-card"><div class="gl-card-icon"><i class="fa-solid fa-earth-europe"></i></div><h4>Europe & United Kingdom</h4><p>EU-wide customs clearance, UK FTA preferences, and VAT management for goods entering the world's largest single market.</p></div>
+      <div class="gl-card"><div class="gl-card-icon"><i class="fa-solid fa-earth-africa"></i></div><h4>Middle East & Africa</h4><p>UAE, Saudi Arabia, Kenya, South Africa, and emerging markets with full CEPA preference management and compliance support.</p></div>
+      <div class="gl-card"><div class="gl-card-icon"><i class="fa-solid fa-earth-americas"></i></div><h4>South America</h4><p>Brazil, Chile, Colombia, Peru, and Argentina with in-country customs clearance, duty management, and local regulatory navigation.</p></div>
+      <div class="gl-card"><div class="gl-card-icon"><i class="fa-solid fa-earth-asia"></i></div><h4>Oceania & Pacific Islands</h4><p>New Zealand, Fiji, Papua New Guinea, and the broader Pacific trading network with preferential access through regional agreements.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Industries -->
+<section class="industries" id="industries">
+  <div class="container">
+    <div class="ind-head">
+      <div class="sec-eyebrow">Industries We Serve</div>
+      <h2 class="sec-heading">Sector Expertise That Delivers</h2>
+      <p class="sec-sub">Our specialists understand the unique international regulatory, compliance, and logistical demands of your industry.</p>
+    </div>
+    <div class="ind-grid">
+      <div class="ind-card"><div class="ind-icon blue"><i class="fa-solid fa-microchip"></i></div><h4>Technology & IT</h4><p>Hardware, data centres, networking & AI infrastructure</p></div>
+      <div class="ind-card"><div class="ind-icon green"><i class="fa-solid fa-heart-pulse"></i></div><h4>Medical & Pharma</h4><p>Regulatory-compliant devices, equipment & pharmaceuticals</p></div>
+      <div class="ind-card"><div class="ind-icon blue"><i class="fa-solid fa-wheat-awn"></i></div><h4>Agriculture & Food</h4><p>Biosecurity, cold-chain logistics & export certification</p></div>
+      <div class="ind-card"><div class="ind-icon green"><i class="fa-solid fa-cart-shopping"></i></div><h4>eCommerce & Retail</h4><p>High-volume international fulfilment & DDP delivery</p></div>
+      <div class="ind-card"><div class="ind-icon green"><i class="fa-solid fa-gears"></i></div><h4>Manufacturing</h4><p>Raw materials, parts import & global distribution</p></div>
+      <div class="ind-card"><div class="ind-icon blue"><i class="fa-solid fa-helmet-safety"></i></div><h4>Mining & Resources</h4><p>Heavy equipment, hazardous goods & export permits</p></div>
+      <div class="ind-card"><div class="ind-icon blue"><i class="fa-solid fa-building"></i></div><h4>Construction</h4><p>Building materials, prefab & project logistics worldwide</p></div>
+      <div class="ind-card"><div class="ind-icon green"><i class="fa-solid fa-bolt"></i></div><h4>Energy & Renewables</h4><p>Solar, batteries, turbines & critical mineral supply chains</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Process -->
+<section class="process" id="process">
+  <div class="container">
+    <div class="proc-head">
+      <div class="sec-eyebrow">How It Works</div>
+      <h2 class="sec-heading">Simple. Compliant. Delivered.</h2>
+      <p class="sec-sub">From your first enquiry to goods delivered anywhere in the world — we manage the entire process with one dedicated point of contact.</p>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><h4>Consult & Quote</h4><p>Tell us what you're trading and where. We provide upfront landed costs, duty estimates, and lead times within 24 hours.</p></div>
+      <div class="step"><div class="step-num">2</div><h4>Compliance & Docs</h4><p>Our team manages all permits, licences, tariff classification, sanctions screening, and customs documentation globally.</p></div>
+      <div class="step"><div class="step-num">3</div><h4>Ship & Clear</h4><p>We arrange international freight, manage multi-country customs clearance, pay all duties and taxes, and track in real time.</p></div>
+      <div class="step"><div class="step-num">4</div><h4>Deliver & Support</h4><p>Door-to-door delivery worldwide with warehousing options and ongoing support including VAT/GST recovery and FTA claims.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section class="testimonials" id="testimonials">
+  <div class="container">
+    <div class="test-head">
+      <div class="sec-eyebrow">Testimonials</div>
+      <h2 class="sec-heading">Trusted by Businesses Worldwide</h2>
+    </div>
+    <div class="test-grid">
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <blockquote>AGTG transformed our supply chain across Asia-Pacific. What used to take weeks of paperwork across multiple countries now happens seamlessly through a single point of contact.</blockquote>
+        <div class="test-author"><div class="test-av t-b">JM</div><div><div class="test-name">James Mitchell</div><div class="test-role">COO, TechDeploy International</div></div></div>
+      </div>
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <blockquote>As a European company entering the Australian and APAC markets, AGTG's Importer of Record service was a game-changer. Full compliance from day one across multiple countries.</blockquote>
+        <div class="test-author"><div class="test-av t-g">KL</div><div><div class="test-name">Karen Liu</div><div class="test-role">VP Operations, GreenVolt EU</div></div></div>
+      </div>
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <blockquote>We export premium products to 14 countries across three continents. AGTG handles every market's regulations, certifications, and documentation flawlessly — they're our global trade partner.</blockquote>
+        <div class="test-author"><div class="test-av t-m">TS</div><div><div class="test-name">Tom Shepherd</div><div class="test-role">CEO, Murray Valley Global</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="contact">
+  <div class="container">
+    <div class="cta-box">
+      <div class="cta-left">
+        <h2>Ready to Trade Globally?</h2>
+        <p>Whether you're shipping your first container or managing complex multi-country supply chains, our international trade experts are ready to help you move goods anywhere in the world.</p>
+      </div>
+      <div class="cta-right">
+        <a href="mailto:trade@agtg.com.au" class="btn-cta-green">Contact Us <i class="fa-solid fa-arrow-right"></i></a>
+        <a href="tel:+61430003334" class="btn-cta-outline"><i class="fa-solid fa-phone"></i> 0430 003 334</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="ft-grid">
+      <div>
+        <div class="ft-logo"><div class="ft-wordmark">AGTG<span>.</span></div></div>
+        <p class="ft-desc">Australian Global Trade Gateway — connecting businesses worldwide through seamless international import, export, and logistics solutions.</p>
+      </div>
+      <div class="ft-col"><h5>Solutions</h5><ul><li><a href="#services">Customs Brokerage</a></li><li><a href="#services">International Freight</a></li><li><a href="#services">Trade Compliance</a></li><li><a href="#services">Importer of Record</a></li><li><a href="#services">Exporter of Record</a></li><li><a href="#services">Warehousing</a></li></ul></div>
+      <div class="ft-col"><h5>Industries</h5><ul><li><a href="#industries">Technology</a></li><li><a href="#industries">Medical & Pharma</a></li><li><a href="#industries">Agriculture</a></li><li><a href="#industries">eCommerce</a></li><li><a href="#industries">Mining & Resources</a></li><li><a href="#industries">Energy</a></li></ul></div>
+      <div class="ft-col"><h5>Global Reach</h5><ul><li><a href="#global">Asia-Pacific</a></li><li><a href="#global">North America</a></li><li><a href="#global">Europe & UK</a></li><li><a href="#global">Middle East & Africa</a></li><li><a href="#global">South America</a></li><li><a href="#global">Oceania</a></li></ul></div>
+      <div class="ft-col"><h5>Company</h5><ul><li><a href="#contact">About AGTG</a></li><li><a href="#contact">Our Team</a></li><li><a href="#contact">Careers</a></li><li><a href="#contact">Contact Us</a></li><li><a href="#contact">Blog & Insights</a></li><li><a href="#contact">Partner With Us</a></li></ul></div>
+    </div>
+    <div class="ft-bottom">
+      <p>&copy; 2026 Australian Global Trade Gateway Pty Ltd. All rights reserved.</p>
+      <div class="ft-social">
+        <a href="javascript:void(0)" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="javascript:void(0)" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="mailto:trade@agtg.com.au" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Nav scroll shadow
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').classList.toggle('scrolled',window.scrollY>10);
+});
+
+// Mobile menu toggle
+const hamburger=document.getElementById('hamburger');
+const mobileMenu=document.getElementById('mobileMenu');
+
+hamburger.addEventListener('click',()=>{
+  const isOpen=mobileMenu.classList.toggle('open');
+  const icon=hamburger.querySelector('i');
+  // FIX #4: toggle icon class
+  icon.className=isOpen?'fa-solid fa-xmark':'fa-solid fa-bars';
+  // FIX #6: lock body scroll
+  document.body.classList.toggle('menu-open',isOpen);
+  // Accessibility: toggle aria-expanded
+  hamburger.setAttribute('aria-expanded',isOpen);
+});
+
+// Close mobile menu on link click
+mobileMenu.querySelectorAll('a').forEach(link=>{
+  link.addEventListener('click',()=>{
+    mobileMenu.classList.remove('open');
+    hamburger.querySelector('i').className='fa-solid fa-bars';
+    document.body.classList.remove('menu-open');
+    hamburger.setAttribute('aria-expanded','false');
+  });
+});
+
+// FIX #2: Smooth scroll — guard against bare "#" which crashes querySelector
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const href=a.getAttribute('href');
+    if(!href||href==='#') return; // skip bare hashes
+    try{
+      const target=document.querySelector(href);
+      if(target){
+        e.preventDefault();
+        target.scrollIntoView({behavior:'smooth',block:'start'});
+      }
+    }catch(err){
+      // invalid selector — ignore silently
+    }
+  });
+});
+</script>
+</body>
+</html>
