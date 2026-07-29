@@ -248,21 +248,6 @@ a:focus:not(:focus-visible),button:focus:not(:focus-visible){outline:none}
 .step h4{font-size:16px;font-weight:700;color:var(--blue-dark);margin-bottom:8px}
 .step p{font-size:14px;line-height:1.6;color:var(--g500)}
 
-/* ─── TESTIMONIALS ─── */
-.testimonials{padding:100px 0;background:var(--g50)}
-.test-head{margin-bottom:52px}
-/* FIX #7: center test-grid at tablet */
-.test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.test-card{background:#fff;border:1px solid var(--g200);border-radius:var(--r);padding:30px;transition:box-shadow .3s}
-.test-card:hover{box-shadow:var(--sh-md)}
-.test-stars{margin-bottom:14px;color:#F5A623;font-size:14px;letter-spacing:2px}
-.test-card blockquote{font-size:14px;line-height:1.7;color:var(--g600);margin-bottom:22px;font-style:normal}
-.test-author{display:flex;align-items:center;gap:12px;padding-top:18px;border-top:1px solid var(--g100)}
-.test-av{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:#fff;flex-shrink:0}
-.t-b{background:var(--blue)}.t-g{background:var(--green)}.t-m{background:var(--blue-mid)}
-.test-name{font-size:14px;font-weight:700;color:var(--blue-dark)}
-.test-role{font-size:12px;color:var(--g400)}
-
 /* ─── CTA ─── */
 .cta{padding:100px 0}
 .cta-box{background:linear-gradient(135deg,var(--blue-dark),var(--blue-mid));border-radius:18px;padding:68px 72px;display:flex;align-items:center;justify-content:space-between;gap:48px;position:relative;overflow:hidden}
@@ -307,8 +292,6 @@ footer{background:var(--g50);border-top:1px solid var(--g200);padding:56px 0 28p
   .ind-grid{grid-template-columns:repeat(2,1fr)}
   .steps{grid-template-columns:repeat(2,1fr);gap:36px}
   .steps::before{display:none}
-  /* FIX #7: center the single-column test grid */
-  .test-grid{grid-template-columns:1fr;max-width:520px;margin:0 auto}
   .cta-box{flex-direction:column;text-align:center;padding:52px 36px}
   .cta-left p{margin:0 auto}
   /* FIX #8: footer wraps cleanly at tablet */
@@ -696,33 +679,6 @@ footer{background:var(--g50);border-top:1px solid var(--g200);padding:56px 0 28p
       <div class="step"><div class="step-num">2</div><h4>Compliance & Docs</h4><p>Our team manages all permits, licences, tariff classification, sanctions screening, and customs documentation globally.</p></div>
       <div class="step"><div class="step-num">3</div><h4>Ship & Clear</h4><p>We arrange international freight, manage multi-country customs clearance, pay all duties and taxes, and track in real time.</p></div>
       <div class="step"><div class="step-num">4</div><h4>Deliver & Support</h4><p>Door-to-door delivery worldwide with warehousing options and ongoing support including VAT/GST recovery and FTA claims.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- Testimonials -->
-<section class="testimonials" id="testimonials">
-  <div class="container">
-    <div class="test-head">
-      <div class="sec-eyebrow">Testimonials</div>
-      <h2 class="sec-heading">Trusted by Businesses Worldwide</h2>
-    </div>
-    <div class="test-grid">
-      <div class="test-card">
-        <div class="test-stars">★★★★★</div>
-        <blockquote>AGTG transformed our supply chain across Asia-Pacific. What used to take weeks of paperwork across multiple countries now happens seamlessly through a single point of contact.</blockquote>
-        <div class="test-author"><div class="test-av t-b">JM</div><div><div class="test-name">James Mitchell</div><div class="test-role">COO, TechDeploy International</div></div></div>
-      </div>
-      <div class="test-card">
-        <div class="test-stars">★★★★★</div>
-        <blockquote>As a European company entering the Australian and APAC markets, AGTG's Importer of Record service was a game-changer. Full compliance from day one across multiple countries.</blockquote>
-        <div class="test-author"><div class="test-av t-g">KL</div><div><div class="test-name">Karen Liu</div><div class="test-role">VP Operations, GreenVolt EU</div></div></div>
-      </div>
-      <div class="test-card">
-        <div class="test-stars">★★★★★</div>
-        <blockquote>We export premium products to 14 countries across three continents. AGTG handles every market's regulations, certifications, and documentation flawlessly — they're our global trade partner.</blockquote>
-        <div class="test-author"><div class="test-av t-m">TS</div><div><div class="test-name">Tom Shepherd</div><div class="test-role">CEO, Murray Valley Global</div></div></div>
-      </div>
     </div>
   </div>
 </section>
