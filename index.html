@@ -6,6 +6,7 @@
 <meta name="description" content="AGTG — Australian Global Trade Gateway. Seamless import, export, customs brokerage, freight forwarding, and trade compliance solutions connecting businesses worldwide.">
 <title>AGTG — Australian Global Trade Gateway</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23003366'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' fill='%2300B74F' font-family='Arial' font-weight='800' font-size='14'%3EAG%3C/text%3E%3C/svg%3E">
+<link rel="preload" as="image" href="assets/img/hero-port.webp" type="image/webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://cdnjs.cloudflare.com">
@@ -78,23 +79,26 @@ a:focus:not(:focus-visible),button:focus:not(:focus-visible){outline:none}
 .mobile-menu a.mobile-cta:hover{background:var(--green-dark)}
 
 /* ─── HERO ─── */
-.hero{padding:130px 0 100px;background:linear-gradient(180deg,var(--blue-pale) 0%,var(--white) 100%);position:relative;overflow:hidden}
+.hero{padding:150px 0 100px;background:linear-gradient(180deg,rgba(0,36,77,.9) 0%,rgba(0,36,77,.72) 45%,rgba(0,36,77,.92) 100%),var(--blue-dark) url('assets/img/hero-port.webp') center/cover no-repeat;position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;top:-200px;right:-150px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(0,183,79,.05),transparent 70%)}
 .hero-center{text-align:center;max-width:740px;margin:0 auto;position:relative;z-index:1}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;padding:5px 14px 5px 8px;background:var(--green-light);color:var(--green-dark);font-size:13px;font-weight:700;border-radius:20px;margin-bottom:24px}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;padding:5px 14px 5px 8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(6px);color:#fff;font-size:13px;font-weight:700;border-radius:20px;margin-bottom:24px}
 .hero-eyebrow-dot{width:7px;height:7px;background:var(--green);border-radius:50%}
-.hero h1{font-size:50px;font-weight:800;line-height:1.12;color:var(--blue-dark);letter-spacing:-1px;margin-bottom:22px}
+.hero h1{font-size:50px;font-weight:800;line-height:1.12;color:#fff;text-shadow:0 2px 24px rgba(0,20,45,.35);letter-spacing:-1px;margin-bottom:22px}
 .hero h1 .hl{color:var(--green)}
-.hero-p{font-size:18px;line-height:1.75;color:var(--g500);margin:0 auto 38px;max-width:600px}
+.hero-p{font-size:18px;line-height:1.75;color:rgba(255,255,255,.82);margin:0 auto 38px;max-width:600px}
 .hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
 .btn-primary{display:inline-flex;align-items:center;gap:8px;padding:14px 30px;background:var(--green);color:#fff;font-size:15px;font-weight:700;border-radius:8px;border:0;cursor:pointer;transition:all .2s}
 .btn-primary:hover{background:var(--green-dark);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,183,79,.22)}
 .btn-secondary{display:inline-flex;align-items:center;gap:8px;padding:14px 30px;background:#fff;color:var(--blue);font-size:15px;font-weight:700;border-radius:8px;border:1.5px solid var(--g200);cursor:pointer;transition:all .2s}
 .btn-secondary:hover{border-color:var(--blue);background:var(--blue-pale)}
 
+.hero .btn-secondary{background:rgba(255,255,255,.08);color:#fff;border-color:rgba(255,255,255,.35);backdrop-filter:blur(6px)}
+.hero .btn-secondary:hover{background:rgba(255,255,255,.16);border-color:#fff}
+
 /* Hero features */
 .hero-features{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:64px;position:relative;z-index:1}
-.hf-card{background:#fff;border:1px solid var(--g200);border-radius:var(--r);padding:26px 22px;transition:all .3s;text-align:left}
+.hf-card{background:#fff;box-shadow:0 12px 40px rgba(0,20,45,.25);border:1px solid var(--g200);border-radius:var(--r);padding:26px 22px;transition:all .3s;text-align:left}
 .hf-card:hover{box-shadow:var(--sh-lg);transform:translateY(-4px);border-color:var(--green)}
 .hf-top{display:flex;align-items:center;gap:12px;margin-bottom:10px}
 .hf-icon{width:40px;height:40px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px}
@@ -122,7 +126,11 @@ a:focus:not(:focus-visible),button:focus:not(:focus-visible){outline:none}
 .srv-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--green);transform:scaleX(0);transform-origin:left;transition:transform .3s}
 .srv-card:hover{box-shadow:var(--sh-lg);transform:translateY(-5px);border-color:transparent;will-change:transform}
 .srv-card:hover::after{transform:scaleX(1)}
-.srv-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;font-size:20px}
+.srv-img{margin:-32px -26px 0;height:176px;overflow:hidden;position:relative}
+.srv-img::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,36,77,0) 45%,rgba(0,36,77,.35) 100%)}
+.srv-img img,.ind-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease}
+.srv-card:hover .srv-img img,.ind-card:hover .ind-img img{transform:scale(1.06)}
+.srv-icon{width:52px;height:52px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin:-26px 0 18px;font-size:20px;position:relative;z-index:1;border:3px solid #fff;box-shadow:var(--sh-md)}
 .srv-icon.blue{background:var(--blue-light);color:var(--blue)}
 .srv-icon.green{background:var(--green-light);color:var(--green)}
 .srv-card h3{font-size:18px;font-weight:700;color:var(--blue-dark);margin-bottom:10px}
@@ -204,6 +212,13 @@ a:focus:not(:focus-visible),button:focus:not(:focus-visible){outline:none}
 .why{padding:100px 0}
 .why-head{text-align:center;margin-bottom:56px}
 .why-head .sec-sub{margin:0 auto}
+.why-banner{position:relative;border-radius:18px;overflow:hidden;height:340px;margin-bottom:28px;box-shadow:var(--sh-lg)}
+.why-banner img{width:100%;height:100%;object-fit:cover;display:block}
+.why-banner::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,36,77,.88) 0%,rgba(0,36,77,.45) 50%,rgba(0,36,77,0) 80%)}
+.why-banner-cap{position:absolute;left:44px;bottom:40px;z-index:1;max-width:440px}
+.why-banner-cap span{display:inline-block;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:10px}
+.why-banner-cap h3{font-size:28px;font-weight:800;line-height:1.2;color:#fff;letter-spacing:-.3px;margin-bottom:8px}
+.why-banner-cap p{font-size:15px;line-height:1.65;color:rgba(255,255,255,.78)}
 .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 .why-card{background:var(--blue-pale);border:1px solid transparent;border-radius:var(--r);padding:32px 26px;transition:all .3s}
 .why-card:hover{background:#fff;border-color:var(--g200);box-shadow:var(--sh-md);transform:translateY(-4px)}
@@ -212,26 +227,27 @@ a:focus:not(:focus-visible),button:focus:not(:focus-visible){outline:none}
 .why-card p{font-size:14px;line-height:1.65;color:var(--g500)}
 
 /* ─── GLOBAL ─── */
-.global{padding:100px 0;background:var(--blue-dark);color:#fff;position:relative;overflow:hidden}
+.global{padding:100px 0;background:linear-gradient(180deg,rgba(0,36,77,.9),rgba(0,36,77,.55) 45%,rgba(0,36,77,.9)),var(--blue-dark) url('assets/img/global-earth.webp') center/cover no-repeat;color:#fff;position:relative;overflow:hidden}
 .global::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 20% 60%,rgba(0,183,79,.06),transparent 50%),radial-gradient(circle at 80% 30%,rgba(10,77,140,.12),transparent 50%)}
 .global .container{position:relative;z-index:1}
 .global .sec-heading{color:#fff}
-.global .sec-sub{color:rgba(255,255,255,.55)}
+.global .sec-sub{color:rgba(255,255,255,.7)}
 .global-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:52px}
-.gl-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:var(--r);padding:28px 24px;transition:all .3s}
-.gl-card:hover{background:rgba(255,255,255,.09);border-color:var(--green);transform:translateY(-3px)}
+.gl-card{background:rgba(0,36,77,.5);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.12);border-radius:var(--r);padding:28px 24px;transition:all .3s}
+.gl-card:hover{background:rgba(0,36,77,.7);border-color:var(--green);transform:translateY(-3px)}
 .gl-card-icon{width:42px;height:42px;border-radius:10px;background:rgba(0,183,79,.12);color:var(--green);display:flex;align-items:center;justify-content:center;margin-bottom:16px;font-size:18px}
 .gl-card h4{font-size:16px;font-weight:700;color:#fff;margin-bottom:6px}
-.gl-card p{font-size:13px;line-height:1.6;color:rgba(255,255,255,.45)}
+.gl-card p{font-size:13px;line-height:1.6;color:rgba(255,255,255,.65)}
 
 /* ─── INDUSTRIES ─── */
 .industries{padding:100px 0;background:var(--g50)}
 .ind-head{text-align:center;margin-bottom:52px}
 .ind-head .sec-sub{margin:0 auto}
 .ind-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-.ind-card{background:#fff;border:1px solid var(--g200);border-radius:var(--r);padding:30px 22px;text-align:center;transition:all .3s}
+.ind-card{background:#fff;border:1px solid var(--g200);border-radius:var(--r);padding:30px 22px;text-align:center;transition:all .3s;overflow:hidden}
+.ind-img{margin:-30px -22px 0;height:136px;overflow:hidden}
 .ind-card:hover{border-color:var(--green);box-shadow:var(--sh-md);transform:translateY(-4px)}
-.ind-icon{width:52px;height:52px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:20px}
+.ind-icon{width:52px;height:52px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin:-26px auto 14px;font-size:20px;position:relative;z-index:1;border:3px solid #fff;box-shadow:var(--sh-md)}
 .ind-icon.blue{background:var(--blue-light);color:var(--blue)}
 .ind-icon.green{background:var(--green-light);color:var(--green)}
 .ind-card h4{font-size:15px;font-weight:700;color:var(--blue-dark);margin-bottom:5px}
@@ -250,11 +266,11 @@ a:focus:not(:focus-visible),button:focus:not(:focus-visible){outline:none}
 
 /* ─── CTA ─── */
 .cta{padding:100px 0}
-.cta-box{background:linear-gradient(135deg,var(--blue-dark),var(--blue-mid));border-radius:18px;padding:68px 72px;display:flex;align-items:center;justify-content:space-between;gap:48px;position:relative;overflow:hidden}
+.cta-box{background:linear-gradient(135deg,rgba(0,36,77,.95) 0%,rgba(10,77,140,.82) 60%,rgba(10,77,140,.6) 100%),var(--blue-dark) url('assets/img/cta-sky.webp') center/cover no-repeat;border-radius:18px;padding:68px 72px;display:flex;align-items:center;justify-content:space-between;gap:48px;position:relative;overflow:hidden}
 .cta-box::before{content:'';position:absolute;top:-60px;right:-60px;width:250px;height:250px;border-radius:50%;background:rgba(0,183,79,.08)}
 .cta-left{position:relative;z-index:1;flex:1}
 .cta-left h2{font-size:34px;font-weight:800;color:#fff;letter-spacing:-.3px;margin-bottom:10px}
-.cta-left p{font-size:16px;color:rgba(255,255,255,.55);line-height:1.7;max-width:460px}
+.cta-left p{font-size:16px;color:rgba(255,255,255,.78);line-height:1.7;max-width:460px}
 .cta-right{position:relative;z-index:1;display:flex;flex-direction:column;gap:12px;flex-shrink:0}
 .btn-cta-green{padding:14px 34px;background:var(--green);color:#fff;font-size:15px;font-weight:700;border-radius:8px;border:0;cursor:pointer;transition:all .2s;text-align:center;display:block}
 .btn-cta-green:hover{background:var(--green-dark);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,183,79,.3)}
@@ -302,6 +318,10 @@ footer{background:var(--g50);border-top:1px solid var(--g200);padding:56px 0 28p
   .nav-links{display:none}
   .hamburger{display:flex}
   .hero{padding:110px 0 64px}
+  .why-banner{height:300px}
+  .why-banner::after{background:linear-gradient(0deg,rgba(0,36,77,.95) 0%,rgba(0,36,77,.8) 55%,rgba(0,36,77,.15) 100%)}
+  .why-banner-cap{left:24px;right:24px;bottom:24px}
+  .why-banner-cap h3{font-size:22px}
   .hero h1{font-size:30px}
   .hero-features{grid-template-columns:1fr}
   .srv-grid,.global-grid,.ind-grid,.why-grid{grid-template-columns:1fr}
@@ -457,36 +477,42 @@ footer{background:var(--g50);border-top:1px solid var(--g200);padding:56px 0 28p
     </div>
     <div class="srv-grid">
       <div class="srv-card">
+        <div class="srv-img"><img src="assets/img/srv-customs.webp" alt="Signing customs clearance documentation" loading="lazy" width="800" height="440"></div>
         <div class="srv-icon blue"><i class="fa-solid fa-shield-halved"></i></div>
         <h3>Customs Brokerage</h3>
         <p>Licensed customs brokers managing all documentation, duty calculations, regulatory permits, and border clearance for imports and exports across multiple jurisdictions.</p>
         <a href="#" class="srv-link">Learn more <i class="fa-solid fa-arrow-right" style="font-size:11px"></i></a>
       </div>
       <div class="srv-card">
+        <div class="srv-img"><img src="assets/img/srv-freight.webp" alt="Container ship carrying cargo at sea" loading="lazy" width="800" height="440"></div>
         <div class="srv-icon green"><i class="fa-solid fa-truck-fast"></i></div>
         <h3>International Freight</h3>
         <p>Global sea and air freight forwarding with real-time tracking, consolidated shipping, and door-to-door delivery connecting Australia with international destinations.</p>
         <a href="#" class="srv-link">Learn more <i class="fa-solid fa-arrow-right" style="font-size:11px"></i></a>
       </div>
       <div class="srv-card">
+        <div class="srv-img"><img src="assets/img/srv-compliance.webp" alt="Trade specialists reviewing compliance documents" loading="lazy" width="800" height="440"></div>
         <div class="srv-icon blue"><i class="fa-solid fa-scale-balanced"></i></div>
         <h3>Trade Compliance</h3>
         <p>Navigate complex international trade regulations, sanctions screening, tariff classifications, Free Trade Agreements, and anti-dumping rules with expert guidance.</p>
         <a href="#" class="srv-link">Learn more <i class="fa-solid fa-arrow-right" style="font-size:11px"></i></a>
       </div>
       <div class="srv-card">
+        <div class="srv-img"><img src="assets/img/srv-ior.webp" alt="Business partners shaking hands" loading="lazy" width="800" height="440"></div>
         <div class="srv-icon green"><i class="fa-solid fa-file-circle-check"></i></div>
         <h3>Importer & Exporter of Record</h3>
         <p>AGTG acts as your registered IOR/EOR — taking on full compliance liability so your business can trade into new markets without establishing a local entity.</p>
         <a href="#" class="srv-link">Learn more <i class="fa-solid fa-arrow-right" style="font-size:11px"></i></a>
       </div>
       <div class="srv-card">
+        <div class="srv-img"><img src="assets/img/srv-warehouse.webp" alt="Distribution warehouse with stocked pallet racking" loading="lazy" width="800" height="440"></div>
         <div class="srv-icon blue"><i class="fa-solid fa-warehouse"></i></div>
         <h3>Warehousing & Distribution</h3>
         <p>Strategic bonded and general warehousing across key global hubs with pick-and-pack, inventory management, cross-docking, and same-day dispatch capabilities.</p>
         <a href="#" class="srv-link">Learn more <i class="fa-solid fa-arrow-right" style="font-size:11px"></i></a>
       </div>
       <div class="srv-card">
+        <div class="srv-img"><img src="assets/img/srv-tax.webp" alt="Tax forms and calculator on a desk" loading="lazy" width="800" height="440"></div>
         <div class="srv-icon green"><i class="fa-solid fa-receipt"></i></div>
         <h3>Duties, Tax & GST Recovery</h3>
         <p>Optimise duty payments, leverage preferential tariffs through Free Trade Agreements, and recover VAT/GST on imported goods through our specialist advisory team.</p>
@@ -616,6 +642,14 @@ footer{background:var(--g50);border-top:1px solid var(--g200);padding:56px 0 28p
       <h2 class="sec-heading">Global Expertise, Local Execution</h2>
       <p class="sec-sub">We combine deep international trade knowledge with on-the-ground operational capability to deliver seamless cross-border solutions for businesses of any size.</p>
     </div>
+    <div class="why-banner">
+      <img src="assets/img/sydney-harbour.webp" alt="Sydney Harbour with the Opera House and city skyline" loading="lazy" width="1400" height="540">
+      <div class="why-banner-cap">
+        <span>Based in Australia</span>
+        <h3>Your gateway between Australia and the world</h3>
+        <p>Local specialists on the ground, connected to every major trade lane.</p>
+      </div>
+    </div>
     <div class="why-grid">
       <div class="why-card"><div class="why-card-icon"><i class="fa-solid fa-user-check"></i></div><h4>One Point of Contact</h4><p>A dedicated trade specialist manages your entire shipment from origin to destination — across borders, customs, and last-mile delivery.</p></div>
       <div class="why-card"><div class="why-card-icon"><i class="fa-solid fa-clock"></i></div><h4>First-Time Clearance</h4><p>Our compliance-first approach ensures your goods clear customs correctly the first time — avoiding delays, penalties, and border holdups worldwide.</p></div>
@@ -653,14 +687,14 @@ footer{background:var(--g50);border-top:1px solid var(--g200);padding:56px 0 28p
       <p class="sec-sub">Our specialists understand the unique international regulatory, compliance, and logistical demands of your industry.</p>
     </div>
     <div class="ind-grid">
-      <div class="ind-card"><div class="ind-icon blue"><i class="fa-solid fa-microchip"></i></div><h4>Technology & IT</h4><p>Hardware, data centres, networking & AI infrastructure</p></div>
-      <div class="ind-card"><div class="ind-icon green"><i class="fa-solid fa-heart-pulse"></i></div><h4>Medical & Pharma</h4><p>Regulatory-compliant devices, equipment & pharmaceuticals</p></div>
-      <div class="ind-card"><div class="ind-icon blue"><i class="fa-solid fa-wheat-awn"></i></div><h4>Agriculture & Food</h4><p>Biosecurity, cold-chain logistics & export certification</p></div>
-      <div class="ind-card"><div class="ind-icon green"><i class="fa-solid fa-cart-shopping"></i></div><h4>eCommerce & Retail</h4><p>High-volume international fulfilment & DDP delivery</p></div>
-      <div class="ind-card"><div class="ind-icon green"><i class="fa-solid fa-gears"></i></div><h4>Manufacturing</h4><p>Raw materials, parts import & global distribution</p></div>
-      <div class="ind-card"><div class="ind-icon blue"><i class="fa-solid fa-helmet-safety"></i></div><h4>Mining & Resources</h4><p>Heavy equipment, hazardous goods & export permits</p></div>
-      <div class="ind-card"><div class="ind-icon blue"><i class="fa-solid fa-building"></i></div><h4>Construction</h4><p>Building materials, prefab & project logistics worldwide</p></div>
-      <div class="ind-card"><div class="ind-icon green"><i class="fa-solid fa-bolt"></i></div><h4>Energy & Renewables</h4><p>Solar, batteries, turbines & critical mineral supply chains</p></div>
+      <div class="ind-card"><div class="ind-img"><img src="assets/img/ind-tech.webp" alt="Close-up of a computer circuit board" loading="lazy" width="640" height="380"></div><div class="ind-icon blue"><i class="fa-solid fa-microchip"></i></div><h4>Technology & IT</h4><p>Hardware, data centres, networking & AI infrastructure</p></div>
+      <div class="ind-card"><div class="ind-img"><img src="assets/img/ind-medical.webp" alt="Medical professional in a white coat" loading="lazy" width="640" height="380"></div><div class="ind-icon green"><i class="fa-solid fa-heart-pulse"></i></div><h4>Medical & Pharma</h4><p>Regulatory-compliant devices, equipment & pharmaceuticals</p></div>
+      <div class="ind-card"><div class="ind-img"><img src="assets/img/ind-agri.webp" alt="Wheat field at sunset" loading="lazy" width="640" height="380"></div><div class="ind-icon blue"><i class="fa-solid fa-wheat-awn"></i></div><h4>Agriculture & Food</h4><p>Biosecurity, cold-chain logistics & export certification</p></div>
+      <div class="ind-card"><div class="ind-img"><img src="assets/img/ind-ecommerce.webp" alt="Parcel being handed to a customer" loading="lazy" width="640" height="380"></div><div class="ind-icon green"><i class="fa-solid fa-cart-shopping"></i></div><h4>eCommerce & Retail</h4><p>High-volume international fulfilment & DDP delivery</p></div>
+      <div class="ind-card"><div class="ind-img"><img src="assets/img/ind-manufacturing.webp" alt="Welder at work in a factory" loading="lazy" width="640" height="380"></div><div class="ind-icon green"><i class="fa-solid fa-gears"></i></div><h4>Manufacturing</h4><p>Raw materials, parts import & global distribution</p></div>
+      <div class="ind-card"><div class="ind-img"><img src="assets/img/ind-mining.webp" alt="Excavators and haul trucks in an open-cut mine" loading="lazy" width="640" height="380"></div><div class="ind-icon blue"><i class="fa-solid fa-helmet-safety"></i></div><h4>Mining & Resources</h4><p>Heavy equipment, hazardous goods & export permits</p></div>
+      <div class="ind-card"><div class="ind-img"><img src="assets/img/ind-construction.webp" alt="Construction crew overlooking a building site" loading="lazy" width="640" height="380"></div><div class="ind-icon blue"><i class="fa-solid fa-building"></i></div><h4>Construction</h4><p>Building materials, prefab & project logistics worldwide</p></div>
+      <div class="ind-card"><div class="ind-img"><img src="assets/img/ind-energy.webp" alt="Solar farm under a blue sky" loading="lazy" width="640" height="380"></div><div class="ind-icon green"><i class="fa-solid fa-bolt"></i></div><h4>Energy & Renewables</h4><p>Solar, batteries, turbines & critical mineral supply chains</p></div>
     </div>
   </div>
 </section>
